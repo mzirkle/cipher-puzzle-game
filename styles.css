@@ -1,5 +1,6 @@
 body {
   text-align: center;
+  font-family: Arial, sans-serif;
 }
 
 h1 {
@@ -7,25 +8,34 @@ h1 {
 }
 
 #puzzle-container {
-  display: flex;
-  flex-wrap: wrap;
-  justify-content: center;
-  margin-bottom: 10px;
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(30px, 1fr));
+  grid-gap: 2px;
+  max-width: 300px;
+  margin: 0 auto;
+  margin-bottom: 20px;
 }
 
 .cell {
-  width: 30px;
-  height: 30px;
   text-align: center;
   padding: 5px;
-  margin: 2px;
-  border: 1px solid #333;
-  cursor: pointer;
-  user-select: none;
   font-weight: bold;
+  border: 1px solid #333;
+  background-color: #f5f5f5;
+}
+
+.row:nth-child(2n) .cell:nth-child(2n),
+.row:nth-child(2n+1) .cell:nth-child(2n+1) {
+  background-color: #ddd;
+}
+
+.row-title {
+  text-align: right;
+  padding-right: 5px;
 }
 
 #result-text {
   margin-top: 10px;
   font-weight: bold;
 }
+
