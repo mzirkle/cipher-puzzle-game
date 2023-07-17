@@ -1,5 +1,4 @@
-const words = ['HELLO', 'WORLD', 'OPENAI', 'SKIPCIPHER']; // Array of words for skip cipher
-let selectedWord = ''; // Stores the selected word
+let secretPhrase = ''; // Stores the secret phrase
 let skip = 0; // Number of positions to skip
 let attempts = 0; // Number of attempts made
 
@@ -13,19 +12,26 @@ initializeGame();
 submitButton.addEventListener('click', checkGuess);
 
 function initializeGame() {
-  selectedWord = words[Math.floor(Math.random() * words.length)];
-  skip = Math.floor(Math.random() * selectedWord.length);
+  secretPhrase = generateSecretPhrase();
+  skip = Math.floor(Math.random() * 10) + 1; // Generate a skip value between 1 and 10
   attempts = 0;
-  puzzleText.textContent = generatePuzzleText(selectedWord, skip);
+  puzzleText.textContent = generatePuzzleText(secretPhrase, skip);
   guessInput.value = '';
   resultText.textContent = '';
 }
 
-function generatePuzzleText(word, skip) {
+function generateSecretPhrase() {
+  const phrases = ['HELLO WORLD', 'OPENAI IS AWESOME', 'ZODIAC KILLER CIPHER', 'SECRET PHRASE'];
+  return phrases[Math.floor(Math.random() * phrases.length)].toUpperCase();
+}
+
+function generatePuzzleText(phrase, skip) {
   let puzzle = '';
-  for (let i = 0; i < word.length; i++) {
-    if (i % skip === 0) {
-      puzzle += word[i];
+  for (let i = 0; i < phrase.length; i++) {
+    if (phrase[i] === ' ') {
+      puzzle += ' '; // Preserve spaces in the puzzle
+    } else if ((i + 1) % skip === 0) {
+      puzzle += phrase[i];
     } else {
       puzzle += '_';
     }
@@ -37,12 +43,12 @@ function checkGuess() {
   const guess = guessInput.value.toUpperCase();
   attempts++;
 
-  if (guess.length !== selectedWord.length) {
+  if (guess.length !== secretPhrase.length) {
     resultText.textContent = 'Invalid guess length';
     return;
   }
 
-  if (guess === selectedWord) {
+  if (guess === secretPhrase) {
     resultText.textContent = 'Congratulations! You solved the puzzle!';
     submitButton.disabled = true;
   } else {
