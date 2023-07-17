@@ -34,6 +34,12 @@ function initializeGame() {
     const rowElement = document.createElement('div');
     rowElement.className = 'row';
 
+    const rowTitleElement = document.createElement('div');
+    rowTitleElement.className = 'row-title';
+    rowTitleElement.textContent = `${row + 1}.`;
+
+    rowElement.appendChild(rowTitleElement);
+
     for (let col = 0; col < columns.length; col++) {
       const letter = columns[col][row];
       const cellElement = document.createElement('div');
@@ -88,3 +94,4 @@ function checkSolution() {
     resultText.textContent = 'Incorrect solution. Please try again.';
   }
 }
+
